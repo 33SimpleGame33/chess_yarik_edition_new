@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Chess</title>
+</head>
+<body>
+    <a href="{% url 'player_reg' %}">Add player</a>
+    <a href="{% url 'competition_reg' %}">Add competition</a>
+    <div class="competitions">
+    {% for competition in competitions %}
+        <div class="competition">
+            <div class="competition-head">
+                <span class="competition-head__text"> {{ competition }} </span>
+            </div>
+            <div class="competition-game-list">
+                {% with ''|center:4 as range %}
+                    {% for i in range %}
+                    <div class="game-list__row">
+                        {% with forloop.counter as current_level %}
+                            {% for game in competition.games.all|dictsort:"level" %}
+                                {% if game.level == current_level %}
+                                    <div class="row__element">
+                                        {% for player in game.players.all %}
+                                            <button class="element__button" game="{{game.id}}" value="{{player.id}}" level="{{game.level}}" winner="{% if game.winner == player%}true{% else %}false{% endif%}" {% if game.winner %}disabled{% endif %}> {{player.name}} </button>
+                                            {% if game.players.all|length == 1 %}
+                                                <button class="element__button" game="{{game.id}}" level="{{game.level}}" value="" winner="null" disabled> </button>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if not game.players.all %}
+                                            {% if game.level == 1 %}
+                                                <button class="element__button" game="{{game.id}}" level="{{game.level}}" value="" winner="null"> </button>
+                                                <button class="element__button" game="{{game.id}}" level="{{game.level}}" value="" winner="null"> </button>
+                                            {% else %}
+                                                <button class="element__button" game="{{game.id}}" level="{{game.level}}" value="" winner="null" disabled> </button>
+                                                <button class="element__button" game="{{game.id}}" level="{{game.level}}" value="" winner="null" disabled> </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <script src="{% static 'main/js/index.js' %}"></script>
+</body>
+</html>

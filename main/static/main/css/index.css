@@ -1,0 +1,73 @@
+.competition-players {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row__element {
+    display: inline;
+}
+
+.game-list__row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.competition {
+    width: fit-content;
+    border: 2px solid #181818;
+    border-radius: 20px;
+    overflow: hidden
+}
+
+.competitions {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.row__element {
+    display: flex;
+    padding: 5px;
+    background-color: #181818;
+}
+
+.competition-head {
+    background-color: #181818;
+}
+
+.competition-head__text {
+    padding: 0 10px;
+}
+
+.element__button {
+    min-width: 43px;
+    min-height: 34px;
+}
+
+.element__button:first-child {
+    margin-right: 10px;
+}
+
+.element__button[winner=true] {
+    background-color: #88bb33;
+}
+
+.element__button[winner=false] {
+    background-color: #3f48cc;
+}
+
+.element__button[winner="null"] {
+    background-color: #4d4d4d;
+}
+
+.element__button:hover {
+    cursor: pointer;
+}
+
+.element__button:disabled {
+    cursor: default;
+}
+
+.button-list {
+    display: flex;
+    margin-bottom: 10px;
+}

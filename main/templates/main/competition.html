@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition register</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <form method="POST" id="competition">
+        {% csrf_token %}
+        {{form}}
+        <input class="modal-button" id="submit" type="submit" value="Submit">
+        <a href="{% url 'index' %}" class="cancel" id="cancel">Cancel</button>
+    </form>
+    <script>
+        $(document).ready(function() {
+            console.log($("#competition"));
+          $("#competition").submit(function(event) {
+            console.log('submit');
+            var selectedValues = $("#id_players").val();
+            if (selectedValues.length < 2 || Math.log2(selectedValues.length) % 1) {
+              event.preventDefault();
+              alert("Please select the correct number of players");
+            }
+          });
+        });
+    </script>
+</body>
+</html>
